@@ -16,3 +16,12 @@ The existing Account system contains the following problems:
 - Declare the base-class destructor as virtual.
 - Release dynamically allocated memory properly or use smart pointers.
 - Use base-class pointers or references to preserve runtime polymorphism and avoid object slicing.
+## 4.3 Predict the Output
+
+**Expected output:**
+
+3.5 4 3.5
+
+**Explanation:**
+
+The rate() function is non-virtual, so the base-class version is executed through the Account pointer. The vrate() function is virtual, so runtime polymorphism executes the SeniorAccount version. When the derived object is copied into an Account object, object slicing occurs and only the base-class portion is retained.
