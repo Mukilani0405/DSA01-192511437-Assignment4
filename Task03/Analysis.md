@@ -117,3 +117,63 @@ public:
 ### Result
 
 Base-class constructors and member-class constructors are initialized through member initializer lists. This improves object initialization and supports reusable class design.
+## Task 3.3 – Trace the Order of Construction and Destruction
+
+C++ follows a fixed order when constructing and destroying objects.
+
+### Construction Rules
+
+1. Virtual base classes are constructed first.
+2. Direct base classes are constructed next, in the order in which they are declared.
+3. Member objects are constructed in the order in which they are declared inside the class.
+4. The derived-class constructor body executes last.
+
+### Destruction Rules
+
+Destruction takes place in the reverse order of construction.
+
+1. The derived-class destructor executes first.
+2. Member objects are destroyed in reverse declaration order.
+3. Base classes are destroyed last, in reverse construction order.
+
+### Expected Order for the University Classes
+
+For a Student object:
+- Person
+- Address
+- Course
+- Student
+
+Destruction:
+- Student
+- Course
+- Address
+- Person
+
+For a Staff object:
+- Person
+- Address
+- Staff
+
+Destruction:
+- Staff
+- Address
+- Person
+
+For a TeachingAssistant object:
+- Person (virtual base)
+- Address (Person member)
+- Student
+- Course (Student member)
+- Staff
+- TeachingAssistant
+
+Destruction:
+- TeachingAssistant
+- Staff
+- Course
+- Student
+- Address
+- Person
+
+The exact order depends on the order of base classes and member declarations in the actual class definitions.
