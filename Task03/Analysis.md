@@ -195,3 +195,12 @@ Vehicle Engine Car | ~Car ~Engine ~Vehicle
 6. Vehicle is destroyed last.
 
 The destruction order is the reverse of the construction order.
+### Task 3.4 – Experiment: Virtual vs Non-Virtual Inheritance
+
+When virtual inheritance is used, Student and Staff share a single Person base-class subobject inside TeachingAssistant. Therefore, the Person constructor is called only once.
+
+When virtual inheritance is removed, Student and Staff each contain their own Person subobject. Therefore, the Person constructor is called twice, and two Address member objects are also created.
+
+The non-virtual version generally occupies more memory because it contains duplicate base-class data. The exact size depends on the compiler and system architecture.
+
+**Conclusion:** Virtual inheritance solves the diamond problem by maintaining a single shared base-class subobject.
