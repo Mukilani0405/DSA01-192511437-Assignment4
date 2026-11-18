@@ -211,3 +211,87 @@ Person is printed only once because virtual inheritance ensures that TeachingAss
 ### Verification
 
 The predicted output must be compared with the actual output after compiling and running the given program.
+## Alternative Concept – Composition Instead of Multiple Inheritance
+
+Instead of inheriting from Student and Staff, TeachingAssistant can contain Student and Staff objects as members. This represents a has-a relationship.
+
+### C++ Implementation
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Person
+{
+public:
+    string name;
+
+    Person(string n) : name(n) {}
+};
+
+class Student
+{
+public:
+    Person person;
+
+    Student(string n) : person(n) {}
+};
+
+class Staff
+{
+public:
+    Person person;
+
+    Staff(string n) : person(n) {}
+};
+
+class TeachingAssistant
+{
+public:
+    Student student;
+    Staff staff;
+
+    TeachingAssistant(string n)
+        : student(n), staff(n) {}
+};
+
+int main()
+{
+    TeachingAssistant ta("Kavya");
+
+    cout << "Student name: " << ta.student.person.name << endl;
+    cout << "Staff name: " << ta.staff.person.name << endl;
+
+    cout << "TeachingAssistant size: "
+         << sizeof(ta) << " bytes" << endl;
+
+    return 0;
+}
+```
+
+### Expected Observation
+
+The output displays the name through two different member paths:
+
+- `ta.student.person.name`
+- `ta.staff.person.name`
+
+The TeachingAssistant object contains two separate Person objects because Student and Staff each contain a Person member.
+
+### Comparison
+
+| Factor | Virtual multiple inheritance | Composition |
+|---|---|---|
+| Relationship | Is-a | Has-a |
+| Person objects | One shared Person subobject | Two separate Person objects |
+| Accessing name | Directly through the shared base | Through student.person or staff.person |
+| Ambiguity | Resolved using virtual inheritance | Avoided using separate member paths |
+| Space | One shared Person subobject plus inheritance-related implementation overhead | Two Person subobjects plus member objects |
+| Access time | O(1) | O(1) |
+
+The exact object sizes depend on the compiler, data types, alignment and implementation. `sizeof()` can be used to measure the actual size in the execution environment.
+
+### Conclusion
+
+Virtual multiple inheritance is suitable when TeachingAssistant genuinely represents both a Student and a Staff member and should share one Person identity. Composition is suitable when independent Student and Staff objects are required. Both approaches provide constant-time member access, but their object structures differ.
