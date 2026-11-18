@@ -6,29 +6,15 @@ using namespace std;
 class Address
 {
 public:
-    Address()
-    {
-        cout << "Address constructed\n";
-    }
-
-    ~Address()
-    {
-        cout << "Address destroyed\n";
-    }
+    Address() { cout << "Address constructed\n"; }
+    ~Address() { cout << "Address destroyed\n"; }
 };
 
 class Course
 {
 public:
-    Course()
-    {
-        cout << "Course constructed\n";
-    }
-
-    ~Course()
-    {
-        cout << "Course destroyed\n";
-    }
+    Course() { cout << "Course constructed\n"; }
+    ~Course() { cout << "Course destroyed\n"; }
 };
 
 class Person
@@ -43,13 +29,10 @@ public:
         cout << "Person constructed\n";
     }
 
-    ~Person()
-    {
-        cout << "Person destroyed\n";
-    }
+    ~Person() { cout << "Person destroyed\n"; }
 };
 
-class Student :  public Person
+class Student : public Person
 {
 protected:
     Course course;
@@ -60,13 +43,10 @@ public:
         cout << "Student constructed\n";
     }
 
-    ~Student()
-    {
-        cout << "Student destroyed\n";
-    }
+    ~Student() { cout << "Student destroyed\n"; }
 };
 
-class Staff :  public Person
+class Staff : public Person
 {
 public:
     Staff(string n) : Person(n)
@@ -74,17 +54,14 @@ public:
         cout << "Staff constructed\n";
     }
 
-    ~Staff()
-    {
-        cout << "Staff destroyed\n";
-    }
+    ~Staff() { cout << "Staff destroyed\n"; }
 };
 
 class TeachingAssistant : public Student, public Staff
 {
 public:
     TeachingAssistant(string n)
-        : Person(n), Student(n), Staff(n)
+        : Student(n), Staff(n)
     {
         cout << "TeachingAssistant constructed\n";
     }
@@ -97,22 +74,14 @@ public:
 
 int main()
 {
-    cout << "--- Student object ---\n";
-    {
-        Student s("Kavya");
-    }
+    cout << "--- TeachingAssistant object ---\n";
 
-    cout << "\n--- Staff object ---\n";
-    {
-        Staff st("Arun");
-    }
-
-    cout << "\n--- TeachingAssistant object ---\n";
     {
         TeachingAssistant ta("Priya");
     }
-  cout << "\nSize of TeachingAssistant: "
-     << sizeof(TeachingAssistant) << " bytes\n";
+
+    cout << "\nSize of TeachingAssistant: "
+         << sizeof(TeachingAssistant) << " bytes\n";
 
     return 0;
 }
