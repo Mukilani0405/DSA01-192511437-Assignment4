@@ -25,3 +25,15 @@ The existing Account system contains the following problems:
 **Explanation:**
 
 The rate() function is non-virtual, so the base-class version is executed through the Account pointer. The vrate() function is virtual, so runtime polymorphism executes the SeniorAccount version. When the derived object is copied into an Account object, object slicing occurs and only the base-class portion is retained.
+## 4.5 Alternative Design – Single Class with Type Checking
+
+An alternative is to use a single Account class with a type variable and conditional statements to calculate interest rates.
+
+However, this approach has disadvantages:
+- Adding a new account type requires modifying the existing class.
+- Conditional statements increase as account types increase.
+- It does not provide the same flexibility as runtime polymorphism.
+
+The corrected inheritance-based design is better because each account type implements its own rate() function. Smart pointers also provide automatic memory management.
+
+**Conclusion:** Virtual functions, virtual destructors, and smart pointers make the account system safer, reusable, and easier to extend.
