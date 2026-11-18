@@ -177,3 +177,21 @@ Destruction:
 - Person
 
 The exact order depends on the order of base classes and member declarations in the actual class definitions.
+### Predict the Output – Vehicle and Engine
+
+**My predicted output:**
+
+```text
+Vehicle Engine Car | ~Car ~Engine ~Vehicle
+```
+
+**Explanation:**
+
+1. Vehicle is constructed first because it is the base class.
+2. Engine is constructed next because it is a member object of Car.
+3. Car constructor executes last.
+4. When the scope ends, Car is destroyed first.
+5. Engine is destroyed next.
+6. Vehicle is destroyed last.
+
+The destruction order is the reverse of the construction order.
