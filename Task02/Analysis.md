@@ -85,3 +85,109 @@ class TeachingAssistant : public Student, public Staff
 ### Conclusion
 
 Virtual inheritance solves the diamond problem by ensuring that Student and Staff share a single Person base-class subobject inside TeachingAssistant.
+## Task 2.3 – Design the Classes
+
+The classes are designed using public inheritance because the derived classes represent specialised forms of Person, Student and Staff.
+
+### C++ Class Declarations
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Person
+{
+protected:
+    string name;
+    int id;
+    string phone;
+
+public:
+    Person(string n, int i, string p)
+        : name(n), id(i), phone(p) {}
+};
+
+class Student : virtual public Person
+{
+protected:
+    string programme;
+    double cgpa;
+
+public:
+    Student(string n, int i, string p, string prog, double c)
+        : Person(n, i, p), programme(prog), cgpa(c) {}
+};
+
+class Staff : virtual public Person
+{
+protected:
+    string department;
+    double salary;
+
+public:
+    Staff(string n, int i, string p, string d, double s)
+        : Person(n, i, p), department(d), salary(s) {}
+};
+
+class TeachingAssistant : public Student, public Staff
+{
+public:
+    TeachingAssistant(string n, int i, string p,
+                      string prog, double c,
+                      string d, double s)
+        : Person(n, i, p),
+          Student(n, i, p, prog, c),
+          Staff(n, i, p, d, s) {}
+};
+
+class ResearchScholar : public Student
+{
+private:
+    double fellowship;
+
+public:
+    ResearchScholar(string n, int i, string p,
+                    string prog, double c, double f)
+        : Person(n, i, p),
+          Student(n, i, p, prog, c),
+          fellowship(f) {}
+};
+```
+
+### Design Decisions
+
+1. Person contains common personal information.
+2. Student and Staff inherit publicly and virtually from Person.
+3. TeachingAssistant inherits publicly from both Student and Staff.
+4. ResearchScholar inherits publicly from Student.
+5. Fellowship is private because it is specific to ResearchScholar.
+6. Protected members allow derived classes to access inherited information while preventing direct access from unrelated code.
+
+### Inheritance Types
+
+- Hierarchical inheritance: Person → Student and Staff.
+- Multiple inheritance: Student + Staff → TeachingAssistant.
+- Multilevel inheritance: Person → Student → ResearchScholar.
+- Hybrid inheritance: Combination of the above structures.
+
+## Task 2.4 – Access Table
+
+The following table shows how Person members are accessed inside Student under different inheritance modes.
+
+| Person member | Public inheritance | Protected inheritance | Private inheritance |
+|---|---|---|---|
+| Public | Public | Protected | Private |
+| Protected | Protected | Protected | Private |
+| Private | Not directly accessible | Not directly accessible | Not directly accessible |
+
+### Explanation
+
+- **Public inheritance:** Public members remain public and protected members remain protected.
+- **Protected inheritance:** Public and protected members become protected.
+- **Private inheritance:** Public and protected members become private.
+- Private members of Person cannot be accessed directly by Student in any inheritance mode.
+
+### Result
+
+The university people management hierarchy was designed using virtual inheritance to avoid duplicate Person objects. Appropriate access specifiers protect the data while allowing derived classes to reuse common information.
