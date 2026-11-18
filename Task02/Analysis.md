@@ -191,3 +191,23 @@ The following table shows how Person members are accessed inside Student under d
 ### Result
 
 The university people management hierarchy was designed using virtual inheritance to avoid duplicate Person objects. Appropriate access specifiers protect the data while allowing derived classes to reuse common information.
+## Predict the Output – Virtual Inheritance
+
+### My Predicted Output
+
+```text
+Person Student Staff TA
+```
+
+### Explanation
+
+1. Person is constructed first because it is a virtual base class.
+2. Student is constructed next.
+3. Staff is constructed after Student.
+4. TeachingAssistant is constructed last.
+
+Person is printed only once because virtual inheritance ensures that TeachingAssistant contains one shared Person base-class subobject.
+
+### Verification
+
+The predicted output must be compared with the actual output after compiling and running the given program.
